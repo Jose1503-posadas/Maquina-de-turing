@@ -58,7 +58,7 @@ class TuringMachine:
 
         }
 
-    #muestra el contenido actual de la cinta y la posición del cabezal
+    #muestra el contenido actual de la cinta y la posicion del cabezal
     def print_tape(self):
         tape_str = ''.join(self.tape)
         head_str = ' ' * self.head + '^' #marca la posicion del cabezal
@@ -73,7 +73,7 @@ class TuringMachine:
         elif self.head >= len(self.tape):
             self.tape.append(self.blank)
 
-        symbol = self.tape[self.head] #lee el símbolo actual
+        symbol = self.tape[self.head] #lee el simbolo actual
         key = (self.state, symbol) #crea la clave para buscar transición
 
         if key in self.transitions:
@@ -82,13 +82,13 @@ class TuringMachine:
             self.state = new_state #cambia al nuevo estado
             self.head += 1 if direction == 'R' else -1 #mueve el cabezal
         else:
-            self.state = 'HALT' #si no hay transición, detiene la máquina
+            self.state = 'HALT' #si no hay transicion, detiene la maquina
 
-    #ejecuta la maquina hasta llegar a q9 o exceder los pasos máximos
+    #ejecuta la maquina hasta llegar a q9 o exceder los pasos maximos
     def run(self, max_steps=10000):
         steps = 0
         tape_history = [] # Guarda las cintas en cada paso
-        head_history = [] # Guarda la posición del cabezal
+        head_history = [] # Guarda la posicion del cabezal
         state_history = [] # Guarda el estado
 
         while self.state != 'q9' and steps < max_steps:
@@ -98,14 +98,14 @@ class TuringMachine:
             self.step()
             steps += 1
 
-        # Guardar el último paso cuando llegó a q9
+        # Guardar el ultimo paso cuando llego a q9
         tape_history.append(self.tape[:])
         head_history.append(self.head)
         state_history.append(self.state)
 
         return tape_history, head_history, state_history
 
-#función para la animacion
+#funcion para la animacion
 def animate(i, tape_history, head_history, state_history, ax):
     ax.clear()
     tape = tape_history[i]
@@ -118,16 +118,16 @@ def animate(i, tape_history, head_history, state_history, ax):
         ax.add_patch(rect)
         ax.text(j + 0.5, 0.5, symbol, ha='center', va='center', fontsize=14)
 
-    # Dibujar el cabezal(flecha roja)
+    # Dibujar el cabezal
     arrow_color = 'red'
     if state == 'q9':
-        arrow_color = 'green'  #cuando ya llegó a q9
+        arrow_color = 'green'  #cuando ya llego a q9
     ax.text(head + 0.5, 1.3, '↓', ha='center', va='center', fontsize=16, color=arrow_color)
 
     #muestra el estado actual
     ax.text(len(tape) / 2, 2, f"Estado: {state}", ha='center', va='center', fontsize=14, color='blue')
 
-     #ajusta la vista del gráfico
+    #ajusta la vista del grafico
     ax.set_xlim(-1, len(tape) + 1)
     ax.set_ylim(-0.5, 2.5)
     ax.set_aspect('equal')
