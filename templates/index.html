@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="calculator">
+    <form method="POST">
+      <div class="output">
+        <!-- Zona de visualizacion -->
+        <span class="expression">{{ input_expr }}</span>
+        <span class="result">{{ result }}</span>
+        <input type="hidden" name="input" value="{{ input_expr }}">
+      </div>  
+      <div class="buttons">
+        <!-- Botones  -->
+        <button type="submit" name="button" value="0">0</button>
+        <button type="submit" name="button" value="1">1</button>
+        <button type="submit" name="button" value="C" class="bg-red">C</button>
+        <button type="submit" name="button" value="=" class="bg-green">=</button>
+      </div>
+    </form>
+  </div>
+  <!-- Mostrar el GIF generado despues de calcular -->
+  {% if result %}
+    <img src="static/turing_animation.gif" alt="Animación de la Máquina de Turing" style="max-width: 100%; height: auto;">
+  {% endif %}
+</body>
+</html>
